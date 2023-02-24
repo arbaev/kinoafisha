@@ -19,6 +19,7 @@ const adapter = axios.create({
 const tmdb = {
   getDetails: (movie_id) => adapter.get(`/movie/${movie_id}`),
   getCredits: (movie_id) => adapter.get(`/movie/${movie_id}/credits`),
+  getPerson: (person_id) => adapter.get(`/person/${person_id}`),
 };
 
 export default boot(({ app }) => {
