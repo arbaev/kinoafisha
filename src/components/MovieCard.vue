@@ -1,11 +1,11 @@
 <template>
   <div class="row justify-start items-start moviecard">
-    <div class="poster col-3">
+    <div class="poster">
       <div class="poster-wrapper">
         <q-img
           :src="'https://image.tmdb.org/t/p/w300' + movie.poster_path"
           :alt="movie.original_title"
-          :ratio="2 / 3"
+          class="poster-image"
         />
       </div>
     </div>
@@ -27,21 +27,58 @@
       <p class="overview">{{ movie.overview }}</p>
 
       <div class="row items-center q-gutter-x-sm">
-        <q-item v-for="person in crewMain" :key="person.id" class="q-mb-sm">
+        <q-item
+          v-for="person in crewMain"
+          :key="person.id"
+          class="q-mb-sm q-pl-none"
+        >
           <q-item-section avatar>
             <q-avatar>
-              <!-- <img :src="`https://cdn.quasar.dev/img/${contact.avatar}`" /> -->
+              <q-img
+                :src="
+                  'https://image.tmdb.org/t/p/w66_and_h66_face' +
+                  person.profile_path
+                "
+              >
+                <template v-slot:error></template>
+              </q-img>
             </q-avatar>
           </q-item-section>
 
           <q-item-section>
             <q-item-label class="text-bold">{{ person.name }}</q-item-label>
-            <q-item-label caption lines="1">{{ person.job }}</q-item-label>
+            <q-item-label caption lines="1">{{ person.job_rus }}</q-item-label>
           </q-item-section>
         </q-item>
       </div>
-      <div class="cast" v-for="actor in cast.slice(0, 3)" :key="actor.id">
-        {{ actor.original_name }} as {{ actor.character }}
+      <div class="text-h6">В главных ролях</div>
+      <div class="row justify-start">
+        <div
+          class="cast col-3"
+          v-for="actor in cast.slice(0, 3)"
+          :key="actor.id"
+        >
+          <q-card class="my-card">
+            <img
+              :src="
+                'https://image.tmdb.org/t/p/w138_and_h175_face' +
+                actor.profile_path
+              "
+              :alt="actor.name"
+            />
+
+            <q-list>
+              <q-item>
+                <q-item-section>
+                  <q-item-label class="text-bold">{{
+                    actor.name
+                  }}</q-item-label>
+                  <q-item-label caption>{{ actor.character }}</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-card>
+        </div>
       </div>
     </div>
   </div>
@@ -85,20 +122,23 @@ export default defineComponent({
   },
   methods: {
     setDirector() {
-      return this.crew.find((p) => p.job === "Director") || "—";
+      let person = this.crew.find((p) => p.job === "Director");
+      if (person) person["job_rus"] = "Режиссёр";
+      return person;
     },
     setWriter() {
-      return this.crew.find((p) => p.job === "Screenplay") || "—";
+      let person = this.crew.find((p) => p.job === "Screenplay");
+      if (person) person["job_rus"] = "Сценарист";
+      return person;
     },
     setCameraman() {
-      return this.crew.find((p) => p.job === "Director of Photography") || "—";
+      let person = this.crew.find((p) => p.job === "Director of Photography");
+      if (person) person["job_rus"] = "Оператор";
+      return person;
     },
     setCrewMain() {
-      this.crewMain = [
-        this.setDirector(),
-        this.setWriter(),
-        this.setCameraman(),
-      ];
+      let people = [this.setDirector(), this.setWriter(), this.setCameraman()];
+      this.crewMain = people.filter((p) => typeof p !== "undefined");
     },
     fetchMovie(movie_id) {
       this.loading = true;
@@ -132,7 +172,9 @@ export default defineComponent({
   border: 2px dashed red;
 }
 .moviecard {
-  padding: 20px;
+  margin: 20px;
+  border-bottom: #aaa solid 1px;
+  padding-bottom: 20px;
 }
 .poster-image {
   display: block;
@@ -142,13 +184,18 @@ export default defineComponent({
   position: relative;
   top: 0;
   left: 0;
+  border-radius: 4px;
+}
+.poster {
+  min-width: 300px;
+  width: 300px;
+  height: 450px;
 }
 .poster-wrapper {
   border-width: 0px;
   min-width: 300px;
   width: 300px;
   height: 450px;
-  border-radius: 3px;
 }
 .info {
   padding-left: 40px;
@@ -163,5 +210,8 @@ export default defineComponent({
   font-size: 1.25em;
   font-weight: bold;
   color: #666;
+}
+.my-card {
+  width: 130px;
 }
 </style>
