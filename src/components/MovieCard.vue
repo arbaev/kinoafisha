@@ -89,6 +89,12 @@ import { defineComponent } from "vue";
 import { tmdb } from "boot/axios";
 import { netError } from "../helpers/ErrorHandle";
 
+const joblist = [
+  { name_en: "Director", name_rus: "Режиссёр" },
+  { name_en: "Screenplay", name_rus: "Сценарист" },
+  { name_en: "Director of Photography", name_rus: "Оператор-постановщик" },
+];
+
 export default defineComponent({
   name: "MovieCard",
   props: ["movie_id"],
@@ -121,24 +127,16 @@ export default defineComponent({
     },
   },
   methods: {
-    setDirector() {
-      let person = this.crew.find((p) => p.job === "Director");
-      if (person) person["job_rus"] = "Режиссёр";
-      return person;
-    },
-    setWriter() {
-      let person = this.crew.find((p) => p.job === "Screenplay");
-      if (person) person["job_rus"] = "Сценарист";
-      return person;
-    },
-    setCameraman() {
-      let person = this.crew.find((p) => p.job === "Director of Photography");
-      if (person) person["job_rus"] = "Оператор";
-      return person;
-    },
     setCrewMain() {
-      let people = [this.setDirector(), this.setWriter(), this.setCameraman()];
-      this.crewMain = people.filter((p) => typeof p !== "undefined");
+      this.crewMain = joblist.reduce((acc, job) => {
+        let person = this.crew.find((p) => p.job === job.name_en);
+        if (person) {
+          person["job_rus"] = job.name_rus;
+          acc.push(person);
+        }
+
+        return acc;
+      }, []);
     },
     fetchMovie(movie_id) {
       this.loading = true;
