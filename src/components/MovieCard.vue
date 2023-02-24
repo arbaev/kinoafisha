@@ -28,12 +28,12 @@
 
       <div class="row items-center q-gutter-x-sm">
         <q-item
-          v-for="person in crewMain"
+          v-for="person in cast.slice(0, 3)"
           :key="person.id"
           class="q-mb-sm q-pl-none"
         >
           <q-item-section avatar>
-            <q-avatar>
+            <q-avatar rounded>
               <q-img
                 :src="
                   'https://image.tmdb.org/t/p/w66_and_h66_face' +
@@ -47,18 +47,20 @@
 
           <q-item-section>
             <q-item-label class="text-bold">{{ person.name }}</q-item-label>
-            <q-item-label caption lines="1">{{ person.job_rus }}</q-item-label>
+            <q-item-label caption lines="1">{{
+              person.character
+            }}</q-item-label>
           </q-item-section>
         </q-item>
       </div>
-      <div class="text-h6">В главных ролях</div>
-      <div class="row justify-start">
-        <div
-          class="cast col-3"
-          v-for="actor in cast.slice(0, 3)"
-          :key="actor.id"
-        >
-          <q-card class="my-card">
+      <section style="display: none">
+        <div class="text-subtitle1">В главных ролях</div>
+        <div class="row justify-start">
+          <q-card
+            class="cast my-card q-mr-md"
+            v-for="actor in cast.slice(0, 3)"
+            :key="actor.id"
+          >
             <img
               :src="
                 'https://image.tmdb.org/t/p/w138_and_h175_face' +
@@ -79,7 +81,7 @@
             </q-list>
           </q-card>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>
@@ -176,25 +178,25 @@ export default defineComponent({
 }
 .poster-image {
   display: block;
-  min-width: 300px;
-  width: 300px;
-  height: 450px;
+  min-width: 158px;
+  width: 158px;
+
   position: relative;
   top: 0;
   left: 0;
   border-radius: 4px;
 }
-.poster {
-  min-width: 300px;
-  width: 300px;
-  height: 450px;
-}
-.poster-wrapper {
-  border-width: 0px;
-  min-width: 300px;
-  width: 300px;
-  height: 450px;
-}
+// .poster {
+//   min-width: 300px;
+//   width: 300px;
+//   height: 450px;
+// }
+// .poster-wrapper {
+//   border-width: 0px;
+//   min-width: 300px;
+//   width: 300px;
+//   height: 450px;
+// }
 .info {
   padding-left: 40px;
 }

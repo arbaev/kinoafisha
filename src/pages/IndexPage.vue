@@ -13,7 +13,8 @@ export default defineComponent({
   data() {
     return {
       loading: false,
-      ids: [717980, 785084, 640146, 631842],
+      // ids: [672, 87, 718789],
+      ids: [10140, 1930, 277834],
     };
   },
   components: {
