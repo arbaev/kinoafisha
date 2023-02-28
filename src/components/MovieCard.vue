@@ -168,9 +168,6 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.b {
-  border: 2px dashed red;
-}
 .moviecard {
   margin: 20px;
   border-bottom: #aaa solid 1px;
@@ -186,17 +183,6 @@ export default defineComponent({
   left: 0;
   border-radius: 4px;
 }
-// .poster {
-//   min-width: 300px;
-//   width: 300px;
-//   height: 450px;
-// }
-// .poster-wrapper {
-//   border-width: 0px;
-//   min-width: 300px;
-//   width: 300px;
-//   height: 450px;
-// }
 .info {
   padding-left: 40px;
 }
