@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex">
+  <q-page>
     <div v-if="ids.length === 0">
       <movie-form />
     </div>
