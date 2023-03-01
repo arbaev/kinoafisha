@@ -42,23 +42,50 @@
 </template>
 
 <script>
-// import { api } from "boot/axios";
+import { tmdb } from "boot/axios";
+import { ref } from "vue";
 import { emitter } from "../boot/emitter";
-// import { netError } from "helpers/ErrorHandle";
-// import notify from "helpers/notify";
+import { netError } from "../helpers/ErrorHandle";
 
 export default {
   name: "MovieForm",
   data() {
     return {
+      loading: false,
       movie1: "",
       movie2: "",
       movie3: "",
+      ids: ref([]),
     };
   },
   methods: {
-    submitForm() {
-      emitter.emit("movieSubmitted", [this.movie1, this.movie2, this.movie3]);
+    async submitForm() {
+      this.ids = await this.getMovieIds();
+      emitter.emit("movieSubmitted", this.ids);
+    },
+    async getMovieIds() {
+      return await Promise.all(
+        [this.movie1, this.movie2, this.movie3].map(async (m) => {
+          if (Number(m)) {
+            return +m;
+          } else if (
+            m.slice(0, 7) === "https:/" ||
+            m.slice(0, 7) === "http://"
+          ) {
+            return /\/movie\/([\d]+?)\-/g.exec(m)[1];
+          } else {
+            const res = await this.movieSearch(m);
+            return res.data.results[0].id;
+          }
+        })
+      );
+    },
+    movieSearch(query) {
+      try {
+        return tmdb.searchMovies(query);
+      } catch (err) {
+        netError(err);
+      }
     },
   },
 };

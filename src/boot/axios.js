@@ -20,6 +20,8 @@ const tmdb = {
   getDetails: (movie_id) => adapter.get(`/movie/${movie_id}`),
   getCredits: (movie_id) => adapter.get(`/movie/${movie_id}/credits`),
   getPerson: (person_id) => adapter.get(`/person/${person_id}`),
+  searchMovies: (query) =>
+    adapter.get(`/search/movie`, { params: { query: query } }),
 };
 
 export default boot(({ app }) => {
