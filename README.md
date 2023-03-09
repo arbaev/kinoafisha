@@ -1,6 +1,13 @@
 # KinoAfisha
 
-Parse movies data and create poster of them
+> Vue + Vite + Quasar + TheMovieDB API
+
+Enter 3 films and KinoAfisha will create a poster with them for printing on 1 sheet.
+
+As simple as that:
+![enter 3 movies](KinoAfisha-inputs.jpg)
+
+![get the poster](KinoAfisha-result.jpg)
 
 ## Install the dependencies
 
