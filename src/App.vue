@@ -3,6 +3,7 @@ import { ref } from "vue";
 import HeaderMain from "./components/HeaderMain.vue";
 import MovieForm from "./components/MovieForm.vue";
 import MovieList from "./components/MovieList.vue";
+import getMovie from "./composables/getMovie";
 
 export default {
   components: {
@@ -15,9 +16,11 @@ export default {
     const movieNameText = ref("");
     const recieveMovieNameText = (text) => {
       movieNameText.value = text;
+      fetchMovie(movieNameText.value);
     };
+    const { movie, error, fetchMovie } = getMovie(movieNameText.value);
 
-    return { movieNameText, recieveMovieNameText };
+    return { movie, error, movieNameText, recieveMovieNameText };
   },
 };
 </script>
@@ -27,6 +30,7 @@ export default {
     <!-- <HeaderMain /> -->
     <MovieForm @sendMovieName="recieveMovieNameText" class="my-6" />
     {{ movieNameText }}
+    {{ movie }}
     <!-- <MovieList /> -->
   </div>
 </template>
