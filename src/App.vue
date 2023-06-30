@@ -1,5 +1,5 @@
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import HeaderMain from "./components/HeaderMain.vue";
 import MovieForm from "./components/MovieForm.vue";
 import MovieList from "./components/MovieList.vue";
@@ -13,25 +13,26 @@ export default {
   },
 
   setup() {
-    const movieNameText = ref("");
+    const movies = ref([]);
     const recieveMovieNameText = (text) => {
-      movieNameText.value = text;
-      fetchMovie(movieNameText.value);
+      fetchMovie(text);
     };
-    const { movie, error, fetchMovie } = getMovie(movieNameText.value);
+    const { movie, error, fetchMovie } = getMovie();
 
-    return { movie, error, movieNameText, recieveMovieNameText };
+    watch(movie, (movieData) => {
+      movies.value.push(movieData);
+    });
+
+    return { movies, error, recieveMovieNameText };
   },
 };
 </script>
 
 <template>
   <div class="container mx-auto">
-    <!-- <HeaderMain /> -->
+    <HeaderMain />
     <MovieForm @sendMovieName="recieveMovieNameText" class="my-6" />
-    {{ movieNameText }}
-    {{ movie }}
-    <!-- <MovieList /> -->
+    <MovieList :movies="movies" />
   </div>
 </template>
 
