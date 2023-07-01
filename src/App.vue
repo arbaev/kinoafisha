@@ -42,7 +42,7 @@ export default {
 </script>
 
 <template>
-  <div class="container mx-auto">
+  <div>
     <div v-show="!printing">
       <HeaderMain />
       <MovieForm @sendMovieName="recieveMovieNameText" class="my-6" />
