@@ -15,6 +15,7 @@ const getMovie = () => {
       const id = await searchMovie(str);
       if (error.value) {
         console.log(error.value);
+        error.value = null;
       } else {
         return fetchMovieById(id);
       }
@@ -41,8 +42,7 @@ const getMovie = () => {
   const searchMovie = async (str) => {
     try {
       const response = await tmdb.searchMovies(str);
-      // TODO: тут надо выводить ошибку, если результатов поиска нет
-      // TODO: а по хорошему выводить первые 5 результатов и предлагать выбор
+      // TODO: по хорошему выводить первые 5 результатов и предлагать выбор
       console.log(response.data);
 
       if (response.data.results.length === 0) {

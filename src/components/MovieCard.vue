@@ -1,7 +1,17 @@
 <script>
 export default {
+  emits: ["sendRemoveMovie"],
+
   props: ["movie"],
-  setup(props) {},
+  setup(props, { emit }) {
+    const removeMovie = () => {
+      emit("sendRemoveMovie", props.movie);
+    };
+
+    return {
+      removeMovie,
+    };
+  },
 };
 </script>
 
@@ -10,6 +20,7 @@ export default {
     movie card
     <h2>{{ movie.title }}</h2>
     <div>{{ movie.release_date.substring(4, 0) }}</div>
+    <button @click="removeMovie">delete</button>
   </div>
 </template>
 

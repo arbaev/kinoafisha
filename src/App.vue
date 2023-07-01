@@ -4,6 +4,7 @@ import HeaderMain from "./components/HeaderMain.vue";
 import MovieForm from "./components/MovieForm.vue";
 import MovieList from "./components/MovieList.vue";
 import getMovie from "./composables/getMovie";
+import hideElementsForPrint from "./composables/hideElementsForPrint";
 
 export default {
   components: {
@@ -23,16 +24,30 @@ export default {
       movies.value.push(movieData);
     });
 
-    return { movies, error, recieveMovieNameText };
+    const recieveRemoveMovie = (movie) => {
+      movies.value = movies.value.filter((m) => m.id !== movie.id);
+    };
+
+    const { printing } = hideElementsForPrint();
+
+    return {
+      movies,
+      error,
+      printing,
+      recieveMovieNameText,
+      recieveRemoveMovie,
+    };
   },
 };
 </script>
 
 <template>
   <div class="container mx-auto">
-    <HeaderMain />
-    <MovieForm @sendMovieName="recieveMovieNameText" class="my-6" />
-    <MovieList :movies="movies" />
+    <div v-show="!printing">
+      <HeaderMain />
+      <MovieForm @sendMovieName="recieveMovieNameText" class="my-6" />
+    </div>
+    <MovieList :movies="movies" @sendRemoveMovie="recieveRemoveMovie" />
   </div>
 </template>
 
