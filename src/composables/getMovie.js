@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { tmdb } from "../boot/axios";
+import { tmdb } from "@/boot/axios";
 
 const getMovie = () => {
   const movie = ref(null);

@@ -1,6 +1,6 @@
 <script>
 import { ref } from "vue";
-import MovieCard from "./MovieCard.vue";
+import MovieCard from "@/components/MovieCard.vue";
 import draggable from "vuedraggable";
 
 export default {

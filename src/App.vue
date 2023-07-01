@@ -1,10 +1,10 @@
 <script>
 import { ref, watch } from "vue";
-import HeaderMain from "./components/HeaderMain.vue";
-import MovieForm from "./components/MovieForm.vue";
-import MovieList from "./components/MovieList.vue";
-import getMovie from "./composables/getMovie";
-import hideElementsForPrint from "./composables/hideElementsForPrint";
+import HeaderMain from "@/components/HeaderMain.vue";
+import MovieForm from "@/components/MovieForm.vue";
+import MovieList from "@/components/MovieList.vue";
+import getMovie from "@/composables/getMovie";
+import hideElementsForPrint from "@/composables/hideElementsForPrint";
 
 export default {
   components: {
