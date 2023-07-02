@@ -15,6 +15,8 @@ export default {
 
   setup() {
     // TODO: Обработчик ошибок
+    // TODO: Линки у актёров
+    // TODO: Ошибка, когда отсутствует обложка (запрос taks) или фото актера (запрос 55555)
     // TODO: Анимации добавления/удаления
     // TODO: В хедере вместо текста выпадашки + about
     // TODO: Вывод результаты поиска и предлагать выбор
@@ -29,8 +31,14 @@ export default {
     const { movie, error, fetchMovie } = getMovie();
 
     watch(movie, (movieData) => {
-      movies.value.push(movieData);
+      if (!arrayContainsObject(movies, movie)) {
+        movies.value.unshift(movieData);
+      }
     });
+
+    const arrayContainsObject = (arr, obj) => {
+      return arr.value.some((item) => item.id === obj.value.id);
+    };
 
     const recieveRemoveMovie = (movie) => {
       movies.value = movies.value.filter((m) => m.id !== movie.id);
