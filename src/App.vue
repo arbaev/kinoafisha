@@ -31,6 +31,7 @@ export default {
     const { movie, error, fetchMovie } = getMovie();
 
     watch(movie, (movieData) => {
+      // TODO: блокировка дублей фильмов. Лажово сделана: 1) надо блокировать до сетевого запроса 2) выводить уведомление о дубле
       if (!arrayContainsObject(movies, movie)) {
         movies.value.unshift(movieData);
       }
