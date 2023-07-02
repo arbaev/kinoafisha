@@ -33,11 +33,8 @@ fetchMovieCredits(props.movie_id);
         />
       </div>
       <div class="min-w-0 flex-1">
-        <a href="#" class="focus:outline-none">
-          <span class="absolute inset-0" aria-hidden="true" />
-          <p class="text-sm font-bold text-gray-900">{{ person.name }}</p>
-          <p class="truncate text-sm text-gray-500">{{ person.character }}</p>
-        </a>
+        <p class="text-sm font-bold text-gray-900">{{ person.name }}</p>
+        <p class="truncate text-sm text-gray-500">{{ person.character }}</p>
       </div>
     </div>
   </div>
