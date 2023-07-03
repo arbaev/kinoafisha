@@ -1,27 +1,3 @@
-<script setup>
-import { CalendarDaysIcon, ClockIcon } from "@heroicons/vue/24/outline";
-import { computed } from "vue";
-
-const props = defineProps({
-  movie: Object,
-});
-
-const releaseYear = computed(() => {
-  let date = new Date(props.movie.release_date);
-  return date.toLocaleDateString("ru-RU", {
-    year: "numeric",
-  });
-});
-
-const duration = computed(() => {
-  let hours = Math.trunc(props.movie.runtime / 60);
-  let minutes = props.movie.runtime % 60;
-  minutes = minutes.toString().length < 2 ? `0${minutes}` : minutes;
-
-  return `${hours}:${minutes}`;
-});
-</script>
-
 <template>
   <div class="flex">
     <span
@@ -48,4 +24,29 @@ const duration = computed(() => {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<script setup>
+import { CalendarDaysIcon, ClockIcon } from "@heroicons/vue/24/outline";
+import { computed, defineProps } from "vue";
+
+const props = defineProps({
+  movie: {
+    type: Object,
+    required: true,
+  },
+});
+
+const releaseYear = computed(() => {
+  let date = new Date(props.movie.release_date);
+  return date.toLocaleDateString("ru-RU", {
+    year: "numeric",
+  });
+});
+
+const duration = computed(() => {
+  let hours = Math.trunc(props.movie.runtime / 60);
+  let minutes = props.movie.runtime % 60;
+  minutes = minutes.toString().length < 2 ? `0${minutes}` : minutes;
+
+  return `${hours}:${minutes}`;
+});
+</script>

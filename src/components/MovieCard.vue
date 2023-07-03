@@ -1,22 +1,3 @@
-<script setup>
-import { useKinoAfishaStore } from "@/stores/kinoAfishaStore";
-import { XMarkIcon as XMarkIconMini } from "@heroicons/vue/20/solid";
-import MovieInfo from "@/components/Card/MovieInfo.vue";
-import MovieCast from "./Card/MovieCast.vue";
-
-const kinoAfishaStore = useKinoAfishaStore();
-
-const props = defineProps({
-  movie: Object,
-});
-
-const emit = defineEmits(["sendRemoveMovie"]);
-
-const removeMovie = () => {
-  emit("sendRemoveMovie", props.movie);
-};
-</script>
-
 <template>
   <div class="flex relative mx-10 my-6 border-b">
     <div class="mb-4 mt-2 flex-shrink-0 p-2">
@@ -52,4 +33,22 @@ const removeMovie = () => {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<script setup>
+import { useKinoAfishaStore } from "@/stores/kinoAfishaStore";
+import { XMarkIcon as XMarkIconMini } from "@heroicons/vue/20/solid";
+import MovieInfo from "@/components/Card/MovieInfo.vue";
+import MovieCast from "@/components/Card/MovieCast.vue";
+
+const kinoAfishaStore = useKinoAfishaStore();
+
+const props = defineProps({
+  movie: {
+    type: Object,
+    required: true,
+  },
+});
+
+const removeMovie = () => {
+  kinoAfishaStore.removeMovie(props.movie);
+};
+</script>

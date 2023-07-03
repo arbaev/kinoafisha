@@ -1,21 +1,3 @@
-<script setup>
-import { watch } from "vue";
-import getCredits from "@/composables/getCredits";
-
-const props = defineProps({
-  movie_id: Number,
-});
-
-const { cast, crew, error, fetchMovieCredits } = getCredits();
-
-fetchMovieCredits(props.movie_id);
-
-// watch(cast, () => {
-//   // This function will be called whenever `counter` changes
-//   console.log("cast", cast.value);
-// });
-</script>
-
 <template>
   <div class="grid grid-cols-1 gap-2 grid-cols-3 my-4">
     <div
@@ -40,4 +22,17 @@ fetchMovieCredits(props.movie_id);
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<script setup>
+import getCredits from "@/composables/getCredits";
+
+const props = defineProps({
+  movie_id: {
+    type: Number,
+    required: true,
+  },
+});
+
+const { cast, crew, error, fetchMovieCredits } = getCredits();
+
+fetchMovieCredits(props.movie_id);
+</script>
