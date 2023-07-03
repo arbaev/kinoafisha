@@ -1,19 +1,23 @@
-import { ref } from "vue";
+import { useKinoAfishaStore } from "@/stores/kinoAfishaStore.js";
 
-const hideElementsForPrint = () => {
-  const printing = ref(false);
+// Переключает флаг isPrinting, когда вызывается вывод на печать (нажатие CTRL-P etc)
+export function hideElementsForPrint() {
+  const kinoAfishaStore = useKinoAfishaStore();
+
+  const { setIsPrinting } = kinoAfishaStore;
+
   const hideElementsBeforePrint = () => {
-    printing.value = true;
+    setIsPrinting(true);
   };
 
   const showElementsAfterPrint = () => {
-    printing.value = false;
+    setIsPrinting(false);
   };
 
   window.onbeforeprint = hideElementsBeforePrint;
   window.onafterprint = showElementsAfterPrint;
 
-  return { printing };
-};
+  return {};
+}
 
 export default hideElementsForPrint;

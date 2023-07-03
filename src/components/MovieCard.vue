@@ -1,7 +1,10 @@
 <script setup>
+import { useKinoAfishaStore } from "@/stores/kinoAfishaStore";
 import { XMarkIcon as XMarkIconMini } from "@heroicons/vue/20/solid";
 import MovieInfo from "@/components/Card/MovieInfo.vue";
 import MovieCast from "./Card/MovieCast.vue";
+
+const kinoAfishaStore = useKinoAfishaStore();
 
 const props = defineProps({
   movie: Object,
@@ -35,8 +38,7 @@ const removeMovie = () => {
 
       <MovieCast :movie_id="movie.id" />
 
-      <!-- TODO: Это надо не показывать на печате, заменить на центральное состояние -->
-      <div class="absolute top-0 right-0">
+      <div v-show="!kinoAfishaStore.isPrinting" class="absolute top-0 right-0">
         <button
           type="button"
           @click="removeMovie"

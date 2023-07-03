@@ -1,5 +1,6 @@
 <script>
 import { ref, watch } from "vue";
+import { useKinoAfishaStore } from "@/stores/kinoAfishaStore";
 import HeaderMain from "@/components/HeaderMain.vue";
 import MovieForm from "@/components/MovieForm.vue";
 import MovieList from "@/components/MovieList.vue";
@@ -14,8 +15,8 @@ export default {
   },
 
   setup() {
+    const kinoAfishaStore = useKinoAfishaStore();
     // TODO: Обработчик ошибок
-    // TODO: Линки у актёров
     // TODO: Ошибка, когда отсутствует обложка (запрос taks) или фото актера (запрос 55555)
     // TODO: Анимации добавления/удаления
     // TODO: В хедере вместо текста выпадашки + about
@@ -45,14 +46,14 @@ export default {
       movies.value = movies.value.filter((m) => m.id !== movie.id);
     };
 
-    const { printing } = hideElementsForPrint();
+    hideElementsForPrint();
 
     return {
       movies,
       error,
-      printing,
       recieveMovieNameText,
       recieveRemoveMovie,
+      kinoAfishaStore,
     };
   },
 };
@@ -60,7 +61,7 @@ export default {
 
 <template>
   <div>
-    <div v-show="!printing">
+    <div v-show="!kinoAfishaStore.isPrinting">
       <HeaderMain />
       <MovieForm @sendMovieName="recieveMovieNameText" class="my-6" />
     </div>
