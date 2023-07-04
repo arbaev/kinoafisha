@@ -1,12 +1,12 @@
 <template>
   <div class="mx-auto max-w-2xl">
     <form @submit.prevent="submitSearchString" class="mt-6 flex">
-      <label for="searсh" class="sr-only">Input movie</label>
+      <label for="search" class="sr-only">Input movie</label>
       <input
         v-model="searchString"
         type="text"
+        id="search"
         name="search"
-        id="moviename"
         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
         placeholder="type movie name or TheMovieDB movie id or TheMovieDB url"
       />

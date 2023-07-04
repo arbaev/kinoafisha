@@ -8,16 +8,16 @@ const getMovie = () => {
   const fetchMovie = async (str) => {
     if (str.toLowerCase().includes("themoviedb")) {
       const id = extractTMDBId(str);
-      return fetchMovieById(id);
+      fetchMovieById(id);
     } else if (isInteger(str)) {
-      return fetchMovieById(str);
+      fetchMovieById(str);
     } else {
       const id = await searchMovie(str);
       if (error.value) {
         console.log(error.value);
         error.value = null;
       } else {
-        return fetchMovieById(id);
+        fetchMovieById(id);
       }
     }
   };
@@ -32,16 +32,20 @@ const getMovie = () => {
 
   const fetchMovieById = async (id) => {
     try {
-      const response = await tmdb.getDetails(id);
+      const response = await tmdb.getDetails(id).catch((err) => {
+        error.value = err;
+      });
       movie.value = response.data;
     } catch (err) {
-      return (error.value = err.message);
+      console.log(err);
     }
   };
 
   const searchMovie = async (str) => {
     try {
-      const response = await tmdb.searchMovies(str);
+      const response = await tmdb.searchMovies(str).catch((err) => {
+        error.value = err;
+      });
       // TODO: по хорошему выводить первые 5 результатов и предлагать выбор
       console.log(response.data);
 
@@ -50,7 +54,7 @@ const getMovie = () => {
       }
       return response.data.results[0].id;
     } catch (err) {
-      return (error.value = err.message);
+      console.log(err);
     }
   };
 

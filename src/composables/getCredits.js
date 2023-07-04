@@ -8,11 +8,13 @@ const getCredits = () => {
 
   const fetchMovieCredits = async (id) => {
     try {
-      const response = await tmdb.getCredits(id);
+      const response = await tmdb.getCredits(id).catch((err) => {
+        error.value = err;
+      });
       crew.value = response.data.crew;
       cast.value = response.data.cast;
     } catch (err) {
-      return (error.value = err.message);
+      console.log(err);
     }
   };
 

@@ -4,12 +4,16 @@
       <HeaderMain />
       <MovieForm class="my-6" />
     </div>
-    <MovieList :movies="kinoAfishaStore.movies" />
+    <div v-if="error" class="mx-auto max-w-2xl">
+      <AlertMessage :alert="error" />
+    </div>
+    <div v-else>
+      <MovieList :movies="kinoAfishaStore.movies" />
+    </div>
   </div>
 </template>
 
 <script setup>
-// TODO: Обработчик ошибок
 // TODO: Ошибка, когда отсутствует обложка (запрос taks) или фото актера (запрос 55555)
 // TODO: Анимации добавления/удаления
 // TODO: В хедере вместо текста выпадашки + about
@@ -21,6 +25,7 @@ import { useKinoAfishaStore } from "@/stores/kinoAfishaStore";
 import HeaderMain from "@/components/HeaderMain.vue";
 import MovieForm from "@/components/MovieForm.vue";
 import MovieList from "@/components/MovieList.vue";
+import AlertMessage from "@/components/AlertMessage.vue";
 import getMovie from "@/composables/getMovie";
 import hideElementsForPrint from "@/composables/hideElementsForPrint";
 
