@@ -3,11 +3,16 @@ import { defineStore } from "pinia";
 
 export const useKinoAfishaStore = defineStore("kinoAfisha", () => {
   const isPrinting = ref(false);
+  const showSearchModal = ref(false);
   const movies = ref([]);
   const searchString = ref("");
 
   const setIsPrinting = (bool) => {
     isPrinting.value = bool;
+  };
+
+  const toggleShowSearchModal = () => {
+    showSearchModal.value = !showSearchModal.value;
   };
 
   const setSearchString = (str) => {
@@ -36,5 +41,7 @@ export const useKinoAfishaStore = defineStore("kinoAfisha", () => {
     setIsPrinting,
     searchString,
     setSearchString,
+    showSearchModal,
+    toggleShowSearchModal,
   };
 });

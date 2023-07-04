@@ -1,5 +1,9 @@
 <template>
-  <div class="border-l-4 border-yellow-400 bg-yellow-50 p-4">
+  <div
+    v-for="(err, idx) in errors"
+    :key="idx"
+    class="border-l-4 border-yellow-400 bg-yellow-50 p-4"
+  >
     <div class="flex">
       <div class="flex-shrink-0">
         <ExclamationTriangleIcon
@@ -8,8 +12,8 @@
         />
       </div>
       <div class="ml-3">
-        <p class="text-yellow-700">
-          {{ alert.message }}
+        <p class="text-yellow-700 font-semibold">
+          {{ errorMessage(err) }}
         </p>
       </div>
     </div>
@@ -21,9 +25,17 @@ import { ExclamationTriangleIcon } from "@heroicons/vue/20/solid";
 import { defineProps } from "vue";
 
 const props = defineProps({
-  alert: {
-    type: Object,
+  errors: {
+    type: Array,
     required: true,
   },
 });
+
+const errorMessage = (err) => {
+  if (err?.name === "AxiosError") {
+    return err.response.data.status_message;
+  } else {
+    return err;
+  }
+};
 </script>

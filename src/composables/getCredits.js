@@ -1,3 +1,4 @@
+// запрос на актёров и создателей фильма по его id
 import { ref } from "vue";
 import { tmdb } from "@/boot/axios";
 
@@ -7,15 +8,16 @@ const getCredits = () => {
   const error = ref(null);
 
   const fetchMovieCredits = async (id) => {
-    try {
-      const response = await tmdb.getCredits(id).catch((err) => {
+    await tmdb
+      .getCredits(id)
+      .then((response) => {
+        crew.value = response.data.crew;
+        cast.value = response.data.cast;
+      })
+
+      .catch((err) => {
         error.value = err;
       });
-      crew.value = response.data.crew;
-      cast.value = response.data.cast;
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   return { cast, crew, error, fetchMovieCredits };

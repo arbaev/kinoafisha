@@ -4,46 +4,88 @@
       <HeaderMain />
       <MovieForm class="my-6" />
     </div>
-    <div v-if="error" class="mx-auto max-w-2xl">
-      <AlertMessage :alert="error" />
+    <div v-if="errors" class="mx-auto max-w-2xl">
+      <AlertMessage :errors="errors" />
     </div>
-    <div v-else>
-      <MovieList :movies="kinoAfishaStore.movies" />
-    </div>
+    <SearchList :movies="searchResults" @searchSelect="movieSelected" />
+    <MovieList :movies="kinoAfishaStore.movies" />
   </div>
 </template>
 
 <script setup>
+// TODO: Если сделать запрос абракадаброй, надо выводить ошибку поиска фильмов, и не делать гет фильма
 // TODO: Анимации добавления/удаления
 // TODO: В хедере вместо текста выпадашки + about
-// TODO: Вывод результаты поиска и предлагать выбор
+// TODO: убрать черту внизу у последнего фильма
 // TODO: Оформить ридми и репозиторий
 // TODO: Задеплоить
-import { watch } from "vue";
+import { ref, watch, watchEffect } from "vue";
 import { useKinoAfishaStore } from "@/stores/kinoAfishaStore";
 import HeaderMain from "@/components/HeaderMain.vue";
 import MovieForm from "@/components/MovieForm.vue";
 import MovieList from "@/components/MovieList.vue";
+import SearchList from "@/components/SearchList.vue";
 import AlertMessage from "@/components/AlertMessage.vue";
+import getSearch from "@/composables/getSearch";
 import getMovie from "@/composables/getMovie";
 import hideElementsForPrint from "@/composables/hideElementsForPrint";
 
 const kinoAfishaStore = useKinoAfishaStore();
 
-const { movie, error, fetchMovie } = getMovie();
+const errors = ref([]);
+const { movie, error: getMovieError, fetchMovieById } = getMovie();
+const { searchResults, error: getSearchError, searchMovie } = getSearch();
 
-// в сторе появляется строка инпута поиска — грузим фильм
+// сбор ошибок из композаблов в одну кучу
+watchEffect(() => {
+  errors.value = [getMovieError.value, getSearchError.value].filter(
+    (error) => !!error
+  );
+});
+
+// в сторе обновляется строка инпута поиска — запрашиваем фильм или поиск
 watch(
   () => kinoAfishaStore.searchString,
-  (str) => {
-    fetchMovie(str);
+  (inputString) => {
+    if (inputString === "") return;
+    resetErrors();
+    if (inputString.toLowerCase().includes("themoviedb.org")) {
+      const id = extractTMDBId(inputString);
+      fetchMovieById(id);
+    } else if (isInteger(inputString)) {
+      fetchMovieById(inputString);
+    } else {
+      searchMovie(inputString);
+    }
   }
 );
+
+const extractTMDBId = (str) => {
+  return /\/movie\/([\d]+?)\-/g.exec(str)[1];
+};
+
+const isInteger = (str) => {
+  return /^\d+$/.test(str);
+};
 
 // загрузился фильм — добавляем его в список фильмов в сторе
 watch(movie, (movieData) => {
   kinoAfishaStore.addMovie(movieData);
 });
+
+// обновился список поиска — включаем модальное окно
+watch(searchResults, (movieData) => {
+  kinoAfishaStore.setSearchString("");
+  kinoAfishaStore.toggleShowSearchModal();
+});
+
+const movieSelected = (movieData) => {
+  fetchMovieById(movieData.id);
+};
+
+const resetErrors = () => {
+  errors.value = [];
+};
 
 // скрываем элементы интерфейса при печати
 hideElementsForPrint();
