@@ -8,9 +8,7 @@
       <div class="flex-shrink-0">
         <img
           class="h-12 w-12 rounded"
-          :src="
-            'https://image.tmdb.org/t/p/w66_and_h66_face' + person.profile_path
-          "
+          :src="profilePath(person)"
           :alt="person.name"
         />
       </div>
@@ -35,4 +33,12 @@ const props = defineProps({
 const { cast, crew, error, fetchMovieCredits } = getCredits();
 
 fetchMovieCredits(props.movie_id);
+
+const profilePath = (person) => {
+  if (person.profile_path) {
+    return `https://image.tmdb.org/t/p/w66_and_h66_face${person.profile_path}`;
+  } else {
+    return `https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg`;
+  }
+};
 </script>
