@@ -35,7 +35,7 @@ const errorMessage = (err) => {
   if (err?.name === "AxiosError") {
     return err.response.data.status_message;
   } else {
-    return err;
+    return err.message;
   }
 };
 </script>

@@ -13,7 +13,8 @@
 </template>
 
 <script setup>
-// TODO: Если сделать запрос абракадаброй, надо выводить ошибку поиска фильмов, и не делать гет фильма
+// TODO: Отмена модала поиска
+// TODO: оформить вывод списка поиска
 // TODO: Анимации добавления/удаления
 // TODO: В хедере вместо текста выпадашки + about
 // TODO: убрать черту внизу у последнего фильма
@@ -74,9 +75,16 @@ watch(movie, (movieData) => {
 });
 
 // обновился список поиска — включаем модальное окно
-watch(searchResults, (movieData) => {
+watch(searchResults, (searchData) => {
   kinoAfishaStore.setSearchString("");
-  kinoAfishaStore.toggleShowSearchModal();
+
+  if (searchData.length === 1) {
+    fetchMovieById(searchData[0].id);
+  } else if (searchData.length === 0) {
+    errors.value.push({ name: "SearchError", message: "Nothing found!" });
+  } else {
+    kinoAfishaStore.toggleShowSearchModal();
+  }
 });
 
 const movieSelected = (movieData) => {
