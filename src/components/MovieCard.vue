@@ -1,5 +1,5 @@
 <template>
-  <div class="flex relative mx-10 my-6 border-b">
+  <div class="flex relative mx-10 my-6" :class="{ 'border-b': !isLastItem }">
     <div class="mb-4 mt-2 flex-shrink-0 p-2">
       <img :src="posterPath" :alt="movie.original_title" class="w-40 rounded" />
     </div>
@@ -43,6 +43,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+});
+
+const isLastItem = computed(() => {
+  return kinoAfishaStore.movies.slice(-1)[0].id === props.movie.id;
 });
 
 const removeMovie = () => {
