@@ -18,7 +18,7 @@
       <span
         class="inline-flex items-center gap-x-1.5 rounded-full bg-gray-100 mr-3 px-2 py-1 text-xs font-medium text-gray-600"
       >
-        &#x2022; {{ gnr.name }}
+        &#x2022;&nbsp;{{ gnr.name }}
       </span>
     </div>
   </div>

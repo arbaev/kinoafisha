@@ -29,7 +29,7 @@
             leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <DialogPanel
-              class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
+              class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
             >
               <div class="bg-white px-4 py-4 sm:p-6 sm:pb-4">
                 <div class="mt-3 text-center sm:mt-0 sm:text-left">
@@ -44,7 +44,7 @@
                         <button
                           @click="emitSearchSelect(m)"
                           type="button"
-                          class="w-full rounded bg-indigo-50 px-2 py-1 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
+                          class="w-full rounded bg-indigo-50 px-2 py-1 text-sm font-semibold text-indigo-600 hover:bg-indigo-100"
                         >
                           <div class="flex flex-row justify-between">
                             <div>

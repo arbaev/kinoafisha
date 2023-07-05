@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <draggable
-      :list="movies"
-      item-key="id"
-      @start="dragging = true"
-      @end="dragging = false"
-    >
-      <template #item="{ element }">
-        <MovieCard :movie="element" />
-      </template>
-    </draggable>
-  </div>
+  <draggable
+    :list="movies"
+    item-key="id"
+    @start="dragging = true"
+    @end="dragging = false"
+  >
+    <template #item="{ element }">
+      <MovieCard :movie="element" />
+    </template>
+  </draggable>
 </template>
 
 <script setup>
