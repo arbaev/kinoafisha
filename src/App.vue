@@ -13,9 +13,10 @@
 </template>
 
 <script setup>
-// TODO: Анимации добавления/удаления
 // TODO: В хедере вместо текста выпадашки + about
+// TODO: Поменять цвета кнопок на приятные
 // TODO: Оформить ридми и репозиторий
+// TODO: Фавиконка
 // TODO: Задеплоить
 import { ref, watch, watchEffect } from "vue";
 import { useKinoAfishaStore } from "@/stores/kinoAfishaStore";
