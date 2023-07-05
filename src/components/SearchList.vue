@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from "vue";
+import { defineProps, defineEmits, onBeforeMount } from "vue";
 import { useKinoAfishaStore } from "@/stores/kinoAfishaStore";
 const kinoAfishaStore = useKinoAfishaStore();
 
@@ -104,4 +104,12 @@ const releaseYear = (release_date) => {
     return `(${year})`;
   }
 };
+
+// close modal if ESC pressed
+const handleEscape = onBeforeMount((event) => {
+  if (event?.key === "Escape") {
+    kinoAfishaStore.toggleShowSearchModal();
+  }
+});
+window.addEventListener("keydown", handleEscape);
 </script>
