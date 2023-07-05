@@ -44,7 +44,7 @@
                         <button
                           @click="emitSearchSelect(m)"
                           type="button"
-                          class="w-full rounded bg-indigo-50 px-2 py-1 text-sm font-semibold text-indigo-600 hover:bg-indigo-100"
+                          class="w-full rounded bg-sky-50 px-2 py-1 text-sm font-semibold text-sky-600 hover:bg-sky-100"
                         >
                           <div class="flex flex-row justify-between">
                             <div>
