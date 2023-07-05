@@ -31,21 +31,30 @@
             <DialogPanel
               class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
             >
-              <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+              <div class="bg-white px-4 py-4 sm:p-6 sm:pb-4">
+                <div class="mt-3 text-center sm:mt-0 sm:text-left">
                   <DialogTitle
                     as="h3"
                     class="text-base font-semibold leading-6 text-gray-900"
                     >Выберите фильм</DialogTitle
                   >
                   <div class="mt-2">
-                    <ol>
-                      <li v-for="m in movies" :key="m.id">
-                        <button @click="emitSearchSelect(m)">
-                          <strong>{{ m.title }}</strong> ({{ m.release_date }})
+                    <div class="flex flex-col space-y-1">
+                      <div v-for="m in movies" :key="m.id">
+                        <button
+                          @click="emitSearchSelect(m)"
+                          type="button"
+                          class="w-full rounded bg-indigo-50 px-2 py-1 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
+                        >
+                          <div class="flex flex-row justify-between">
+                            <div>
+                              {{ m.title }}
+                            </div>
+                            <div>{{ releaseYear(m.release_date) }}</div>
+                          </div>
                         </button>
-                      </li>
-                    </ol>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -82,5 +91,17 @@ const emits = defineEmits(["searchSelect"]);
 const emitSearchSelect = (m) => {
   kinoAfishaStore.toggleShowSearchModal();
   emits("searchSelect", m);
+};
+
+const releaseYear = (release_date) => {
+  if (release_date === "") {
+    return "";
+  } else {
+    const date = new Date(release_date);
+    const year = date.toLocaleDateString("ru-RU", {
+      year: "numeric",
+    });
+    return `(${year})`;
+  }
 };
 </script>
