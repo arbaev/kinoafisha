@@ -2,10 +2,11 @@
   <div>
     <div v-show="!kinoAfishaStore.isPrinting">
       <HeaderMain />
+      <AboutTabs />
       <MovieForm class="my-6" />
-    </div>
-    <div v-if="errors" class="mx-auto max-w-2xl">
-      <AlertMessage :errors="errors" />
+      <div v-if="errors" class="mx-auto max-w-2xl">
+        <AlertMessage :errors="errors" />
+      </div>
     </div>
     <SearchList :movies="searchResults" @searchSelect="movieSelected" />
     <MovieList :movies="kinoAfishaStore.movies" />
@@ -13,13 +14,10 @@
 </template>
 
 <script setup>
-// TODO: В хедере вместо текста выпадашки + about
-// TODO: Оформить ридми и репозиторий
-// TODO: Фавиконка
-// TODO: Задеплоить
 import { ref, watch, watchEffect } from "vue";
 import { useKinoAfishaStore } from "@/stores/kinoAfishaStore";
 import HeaderMain from "@/components/HeaderMain.vue";
+import AboutTabs from "@/components/About/Tabs.vue";
 import MovieForm from "@/components/MovieForm.vue";
 import MovieList from "@/components/MovieList.vue";
 import SearchList from "@/components/SearchList.vue";
