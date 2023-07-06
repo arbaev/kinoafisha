@@ -10,7 +10,6 @@ const getSearch = () => {
     await tmdb
       .searchMovies(str)
       .then((response) => {
-        console.log(response);
         searchResults.value = response.data.results;
       })
       .catch((err) => {
