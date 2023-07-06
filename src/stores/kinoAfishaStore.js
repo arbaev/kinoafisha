@@ -11,8 +11,8 @@ export const useKinoAfishaStore = defineStore("kinoAfisha", () => {
     isPrinting.value = bool;
   };
 
-  const toggleShowSearchModal = () => {
-    showSearchModal.value = !showSearchModal.value;
+  const setShowSearchModal = (bool = true) => {
+    showSearchModal.value = bool;
   };
 
   const setSearchString = (str) => {
@@ -42,6 +42,6 @@ export const useKinoAfishaStore = defineStore("kinoAfisha", () => {
     searchString,
     setSearchString,
     showSearchModal,
-    toggleShowSearchModal,
+    setShowSearchModal,
   };
 });

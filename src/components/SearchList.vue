@@ -89,7 +89,7 @@ const props = defineProps({
 const emits = defineEmits(["searchSelect"]);
 
 const emitSearchSelect = (m) => {
-  kinoAfishaStore.toggleShowSearchModal();
+  kinoAfishaStore.setShowSearchModal(false);
   emits("searchSelect", m);
 };
 
@@ -108,7 +108,7 @@ const releaseYear = (release_date) => {
 // close modal if ESC pressed
 const handleEscape = onBeforeMount((event) => {
   if (event?.key === "Escape") {
-    kinoAfishaStore.toggleShowSearchModal();
+    kinoAfishaStore.setShowSearchModal(false);
   }
 });
 window.addEventListener("keydown", handleEscape);

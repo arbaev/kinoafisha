@@ -78,7 +78,7 @@ watch(searchResults, (searchData) => {
   } else if (searchData.length === 0) {
     errors.value.push({ name: "SearchError", message: "Nothing found!" });
   } else {
-    kinoAfishaStore.toggleShowSearchModal();
+    kinoAfishaStore.setShowSearchModal();
   }
 });
 
