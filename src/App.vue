@@ -45,7 +45,9 @@ watch(
   (inputString) => {
     if (inputString === "") return;
     resetErrors();
-    if (inputString.toLowerCase().includes("themoviedb.org")) {
+    if (
+      inputString.toLowerCase().includes("https://www.themoviedb.org/movie/")
+    ) {
       const id = extractTMDBId(inputString);
       fetchMovieById(id);
     } else if (isInteger(inputString)) {
