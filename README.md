@@ -1,5 +1,7 @@
 # Kinoafisha
 
+It creates a list of movies synopsis. For printing or any other purposes.
+
 Demo: [kinoafisha](https://arbaev.com/kinoafisha/)
 
 ## Project setup
